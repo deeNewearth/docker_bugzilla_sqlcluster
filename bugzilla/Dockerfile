@@ -35,11 +35,8 @@ RUN apt-get update && apt-get install -y \
 		libfile-slurp-perl libhtml-scrubber-perl libhtml-formattext-withlinks-perl libjson-rpc-perl libjson-xs-perl \
 		libnet-ldap-perl libauthen-radius-perl libencode-detect-perl libfile-mimeinfo-perl libio-stringy-perl libdaemon-generic-perl
 
-#RUN apt-get install -y mysql-client
+RUN apt-get install -y libtext-diff-perl
 
-#RUN apt-get install -y gcc make
-
-#COPY config/php.ini /usr/local/etc/php/
 
 WORKDIR /var/www
 
@@ -64,6 +61,11 @@ COPY run_apache.sh /var/www/
 COPY initdb.pl /var/www/
 
 WORKDIR /var/www/html
+
+ADD https://ftp.mozilla.org/pub/mozilla.org/webtools/testopia/testopia-2.5-BUGZILLA-4.2.tar.gz ./
+RUN tar zxvf testopia-2.5-BUGZILLA-4.2.tar.gz  \
+	&& rm testopia-2.5-BUGZILLA-4.2.tar.gz
+
 
 COPY config/localconfig ./
 COPY src/ ./
