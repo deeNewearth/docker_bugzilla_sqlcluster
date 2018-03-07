@@ -1,4 +1,11 @@
 #!/bin/bash
+echo "starting script"
+
+
+chmod +x /var/www/initdb.pl
+/var/www/initdb.pl
+#rm /var/www/initdb.pl
+
 
 sed -i "s/%MYSQL_ROOT_PASSWORD%/${MYSQL_ROOT_PASSWORD}/g" ./localconfig 
 sed -i "s/%MYSQL_USER%/$MYSQL_USER/g" ./localconfig 
@@ -22,7 +29,7 @@ echo "export SERVER_NAME=$SERVERNAME" >> /etc/apache2/envvars
 echo "ServerName $SERVER_NAME" >> /etc/apache2/conf-enabled/servername.conf
 
 echo "running checksetup"
-#./checksetup.pl localdata
+./checksetup.pl localdata
 
 
 /etc/init.d/apache2 start && \

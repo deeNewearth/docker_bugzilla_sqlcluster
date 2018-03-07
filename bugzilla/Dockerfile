@@ -35,6 +35,8 @@ RUN apt-get update && apt-get install -y \
 		libfile-slurp-perl libhtml-scrubber-perl libhtml-formattext-withlinks-perl libjson-rpc-perl libjson-xs-perl \
 		libnet-ldap-perl libauthen-radius-perl libencode-detect-perl libfile-mimeinfo-perl libio-stringy-perl libdaemon-generic-perl
 
+#RUN apt-get install -y mysql-client
+
 #RUN apt-get install -y gcc make
 
 #COPY config/php.ini /usr/local/etc/php/
@@ -58,6 +60,8 @@ ENV URLBASE ''
 ENV SMTP_SERVER ''
 
 COPY run_apache.sh /var/www/
+
+COPY initdb.pl /var/www/
 
 WORKDIR /var/www/html
 
