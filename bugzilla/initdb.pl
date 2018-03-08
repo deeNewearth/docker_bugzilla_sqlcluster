@@ -3,7 +3,8 @@ use strict;
 use warnings;
 
 use DBI;
-print("starting init db");
+print("starting init db\n");
+#print("pwd is $ENV{'MYSQL_ROOT_PASSWORD'}");
 
 my $dbh;
 
