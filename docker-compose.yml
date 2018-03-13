@@ -1,19 +1,27 @@
-version: '2'
+version: '3'
 
 services:
   bugzilla: 
+    hostname: bugs.local
     build: ./bugzilla
+    image: labizbille/docker-bugzilla:1.1
     ports:
-      - 8015:80
+      - 80
     environment:
       - MYSQL_ROOT_PASSWORD
       - MYSQL_DB=bugsdb
-
     depends_on:
       - mysql-galera
+    networks:
+      - backend
+      - frontend
+    labels:
+      - "interlock.hostname=bugs"
+      - "interlock.domain=local"
 
   backup: 
     build: ./backup
+    image: labizbille/mysql-backup:1.1
     environment:
       - DISCOVERYURL
       - S3_BUCKET
@@ -26,12 +34,21 @@ services:
       - MYSQL_DB=bugsdb
     depends_on:
       - mysql-galera
+    networks:
+      - backend
 
   mysql-galera:
     image: perconalab/percona-xtradb-cluster:5.6
     environment:
+      - DISCOVERYURL
       - MYSQL_ROOT_PASSWORD
       - CLUSTER_NAME=galera
+    networks:
+      - backend    
       
+
 networks:
-  default:
+  backend:
+  frontend:
+    external:
+      name: to-the-whole-world

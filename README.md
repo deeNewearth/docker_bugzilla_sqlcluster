@@ -1,8 +1,18 @@
 # docker_bugzilla_sqlcluster
 a docker stack with bugzilla, testopia and galera cluster
 
+Running the Stack
+It needs external netwrok
+docker network create -d overlay to-the-whole-world --attachable
 
-the container backs up the data to s3 every 6 hours
+
+cmd /V /C "set MYSQL_ROOT_PASSWORD=XXXXXXXXXXXXXXXX&& set S3_BUCKET=XXXXXXXXXXXXXXXX&& set S3_ACCESSID=XXXXXXXXXXXXXXXX&& 
+	set S3_ACCESSKEY=XXXXXXXXXXXXXXXX&& set DISCOVERYURL=http://172.17.0.1:2379/v2/keys&& docker-compose up"
+
+
+
+The container backs up the data to s3 every 6 hours
+
 to restore the database:
 download the backup C:\tmp\restorebugs and rename to bugs.sql
 
