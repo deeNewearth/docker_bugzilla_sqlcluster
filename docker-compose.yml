@@ -4,7 +4,7 @@ services:
   bugzilla: 
     hostname: bugs.local
     build: ./bugzilla
-    image: labizbille/docker-bugzilla:1.1
+    image: labizbille/docker-bugzilla:1.2
     ports:
       - 80
     environment:
